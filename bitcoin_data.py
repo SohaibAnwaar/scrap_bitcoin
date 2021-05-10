@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[63]:
+# In[71]:
 
 
 from selenium import webdriver
@@ -10,6 +10,8 @@ import time
 from datetime import datetime
 import os
 
+
+# opening The website from where we will scrap our data
 driver = browser = webdriver.Chrome(executable_path="/home/sohaib/Documents/algo_trading/chromedriver_linux64/chromedriver")
 driver.get("https://bitcoinaverage.com/en/bitcoin-price/btc-to-usd")
 time.sleep(20)
@@ -39,14 +41,12 @@ def store_data(price, date):
     '''
     # making new file for every day
     dataframe_path = f"{output_dir}bitcoin_{datetime.today().strftime('%Y_%m_%d')}.csv"
-    
     if os.path.isfile(dataframe_path):
         df = pd.read_csv(dataframe_path)
-        if len(df) > 1000:
-            previous_data   = df['date'].to_list()
-            previous_prices = df['price'].to_list()
-            date.extend(previous_data)
-            price.extend(previous_prices)
+        previous_data   = df['date'].to_list()
+        previous_prices = df['price'].to_list()
+        date.extend(previous_data)
+        price.extend(previous_prices)
         
     # Saving Dataframe
     df = pd.DataFrame({"date":date,"price":price})
@@ -73,9 +73,6 @@ while 1:
     prices.append(bitcoinPrice)
     dates.append(dt_string)
     
-    print(f"price {bitcoinPrice}")
-    print(f"price {dt_string}")
-    
     count += 1
     # Saving Dataframe
     if count > 10:
@@ -83,7 +80,8 @@ while 1:
         count =0
         store_data(prices, dates)
         prices, dates  = [], []
-        
+    
+    # After every 1 sec we will hit website to get the latest coin price
     time.sleep(1)
     
     
