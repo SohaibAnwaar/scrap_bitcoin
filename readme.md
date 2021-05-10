@@ -5,11 +5,11 @@ In this git we are scraping data of bitcoin price every second and storing that 
 
 **Version 0.0**
 
-[X] Scrap Bitcoing data
+- [X] Scrap Bitcoing data
 
-[] Test Script for more than 1 week to see if we are not getting errors
+- [ ] Test Script for more than 1 week to see if we are not getting errors
 
-[] Exploring data
+- [ ] Exploring data
 
-[] applying strategies
+- [ ] applying strategies
 
